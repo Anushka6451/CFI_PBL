@@ -12,7 +12,7 @@ from urllib.parse import parse_qs, urlparse
 BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "data" / "incident.json"
 HOST = "0.0.0.0"
-PORT = int(os.environ.get("PORT", 10000))0.0.1"
+PORT = int(os.environ.get("PORT", 10000))0.0.1
 
 
 def load_case() -> dict:
