@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cyber Terrorism Case Study Investigation</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><div class="brand-mark">CT</div><div><h1>CyberTrace Lab</h1><p>Forensic Simulation Console</p></div></div>
+      <nav>
+        <a class="nav-link active" href="#overview">Overview</a>
+        <a class="nav-link" href="#timeline">Live Timeline</a>
+        <a class="nav-link" href="#evidence">Evidence Locker</a>
+        <a class="nav-link" href="#custody">Chain of Custody</a>
+        <a class="nav-link" href="#sources">Case Sources</a>
+      </nav>
+      <div class="safety-card"><span class="pill safe">Training-safe</span><p>All telemetry, accounts, IPs and hashes in the simulation are synthetic.</p></div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div><p class="eyebrow" id="caseId">LOADING CASE</p><h2 id="caseTitle">Cyber Terrorism Case Study Investigation</h2><p class="subtitle" id="caseSubtitle">Loading historical reconstruction…</p></div>
+        <div class="top-actions">
+          <select id="speedSelect" aria-label="Simulation speed"><option value="0.75">0.75×</option><option value="1" selected>1× speed</option><option value="2">2× speed</option><option value="4">4× speed</option></select>
+          <button id="startBtn" class="btn primary">Start simulation</button>
+          <button id="resetBtn" class="btn secondary">Reset</button>
+          <a class="btn ghost" href="/api/export-case">Export case JSON</a>
+        </div>
+      </header>
+
+      <section class="notice"><strong>Academic classification note:</strong> <span id="classificationNote">Loading…</span></section>
+
+      <section id="overview" class="metrics-grid">
+        <article class="metric-card"><span>Simulation status</span><strong id="statusValue">Idle</strong><small id="statusHint">Ready to replay the case</small></article>
+        <article class="metric-card"><span>Current risk</span><strong><span id="riskValue">0</span>/100</strong><div class="progress"><i id="riskBar"></i></div></article>
+        <article class="metric-card"><span>Evidence acquired</span><strong id="evidenceCount">0 / 0</strong><small>Preserved artifacts</small></article>
+        <article class="metric-card"><span>Critical alerts</span><strong id="criticalCount">0</strong><small>High-impact events</small></article>
+      </section>
+
+      <section class="two-col">
+        <article class="panel historical">
+          <div class="panel-head"><div><p class="eyebrow">REAL INCIDENT CONTEXT</p><h3>2015 Ukraine electric power grid cyberattack</h3></div><span class="pill danger">Critical infrastructure</span></div>
+          <div class="fact-grid" id="factGrid"></div>
+          <p id="impactText"></p>
+          <ul id="historicalElements"></ul>
+          <div class="disclaimer" id="simulationDisclaimer"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><div><p class="eyebrow">ATTACK PATH</p><h3>Investigation stages</h3></div></div>
+          <div class="attack-path" id="attackPath"></div>
+        </article>
+      </section>
+
+      <section id="timeline" class="panel timeline-panel">
+        <div class="panel-head"><div><p class="eyebrow">LIVE EVENT STREAM</p><h3>Forensic timeline</h3></div><span id="streamBadge" class="pill neutral">Disconnected</span></div>
+        <div class="timeline" id="timelineList"><div class="timeline-empty" id="timelineEmpty">Start the simulation to stream reconstructed forensic events.</div></div>
+      </section>
+
+      <section id="evidence" class="panel">
+        <div class="panel-head"><div><p class="eyebrow">DIGITAL EVIDENCE</p><h3>Evidence locker</h3></div><span class="pill neutral" id="evidenceBadge">0 acquired</span></div>
+        <div class="evidence-grid" id="evidenceGrid"></div>
+      </section>
+
+      <section id="custody" class="panel">
+        <div class="panel-head"><div><p class="eyebrow">INTEGRITY</p><h3>Chain of custody</h3></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Evidence</th><th>Acquisition event</th><th>Integrity</th><th>Custodian</th></tr></thead><tbody id="custodyBody"><tr id="custodyEmpty"><td colspan="4">No evidence acquired yet.</td></tr></tbody></table></div>
+      </section>
+
+      <section id="sources" class="panel sources-panel"><div class="panel-head"><div><p class="eyebrow">REFERENCES</p><h3>Historical case sources</h3></div></div><div id="sourceLinks"></div></section>
+      <footer>Safe academic prototype · No exploit code, malware, destructive actions, or real credentials included.</footer>
+    </main>
+  </div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

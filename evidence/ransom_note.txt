@@ -1,0 +1,4 @@
+SIMULATED RANSOMWARE NOTE
+This is educational evidence for a cyber-forensics lab.
+No real attacker contact information or payment instructions are included.
+Incident marker: SIM-WCRY-2026

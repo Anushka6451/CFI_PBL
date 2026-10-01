@@ -1,0 +1,7 @@
+type,value,description
+behavior,SMB port 445,Repeated internal SMB activity associated with propagation
+behavior,mass file modification,Large numbers of files changed in a short period
+artifact,ransom_note.txt,Simulated ransomware notification artifact
+process,unknown.exe,Simulated suspicious executable name
+event,7045,Unexpected Windows service creation
+event,4688,Unexpected process creation

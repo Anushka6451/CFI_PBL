@@ -1,0 +1,12 @@
+timestamp,event_id,host,user,description
+2026-09-11 09:00:03,4624,WS-01,student,Successful interactive logon
+2026-09-11 09:05:12,7045,WS-01,SYSTEM,Unexpected service creation detected
+2026-09-11 09:07:44,4688,WS-01,SYSTEM,Unknown executable process started
+2026-09-11 09:10:21,5156,WS-01,SYSTEM,Outbound SMB connection to WS-02
+2026-09-11 09:12:33,5156,WS-01,SYSTEM,Outbound SMB connection to WS-03
+2026-09-11 09:15:08,4688,WS-02,SYSTEM,Unknown executable process started
+2026-09-11 09:18:47,4663,WS-02,SYSTEM,Large number of user files modified
+2026-09-11 09:20:15,4663,WS-03,SYSTEM,Large number of user files modified
+2026-09-11 09:25:30,1001,WS-02,SYSTEM,Ransomware-style note detected
+2026-09-11 09:28:11,1001,WS-03,SYSTEM,Ransomware-style note detected
+2026-09-11 09:40:00,1000,SOC,SYSTEM,Incident response containment initiated

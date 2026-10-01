@@ -1,0 +1,258 @@
+{
+  "case": {
+    "id": "CTI-UA-2015-DEMO",
+    "title": "Cyber Terrorism Case Study Investigation",
+    "subtitle": "Forensic simulation inspired by the 2015 Ukraine electric power grid cyberattack",
+    "classification_note": "The historical incident is widely documented as a destructive state-sponsored cyberattack against critical infrastructure. The term 'cyber terrorism' is debated in academic and policy literature; this prototype uses the incident as a case-study simulation for critical-infrastructure cyber investigation.",
+    "safety_note": "All logs, IP addresses, domains, hashes, usernames and timestamps used in the live simulation are synthetic. No malware, exploit code, credentials or destructive capability is included."
+  },
+  "historical_context": {
+    "date": "23 December 2015",
+    "location": "Ukraine",
+    "sector": "Electric power distribution / industrial control systems",
+    "impact": "Three electricity distribution companies experienced outages; U.S. government reporting states approximately 225,000 customers lost power for about 1–6 hours.",
+    "publicly_documented_elements": [
+      "Spearphishing attachments were used for initial access into enterprise environments.",
+      "BlackEnergy was used in the campaign and was associated with credential collection and command-and-control activity.",
+      "Attackers obtained access to control environments and remotely operated HMI systems.",
+      "Breakers were opened through malicious control actions, disrupting electricity service.",
+      "KillDisk destructive activity was used to make infected systems inoperable and complicate recovery.",
+      "Telephone denial-of-service activity was reported during the disruption, impeding customer reporting and response."
+    ],
+    "simulation_disclaimer": "Event timestamps and all evidence artifacts below are reconstructed for training and demonstration. They are not original evidence from the victim organizations."
+  },
+  "attack_path": [
+    {"id": "stage-1", "label": "Phishing", "mitre": "T1566.001"},
+    {"id": "stage-2", "label": "Execution", "mitre": "T1059.005"},
+    {"id": "stage-3", "label": "Credential Access", "mitre": "T1056.001"},
+    {"id": "stage-4", "label": "Remote Access", "mitre": "T0822 / T0886"},
+    {"id": "stage-5", "label": "ICS Manipulation", "mitre": "T0831"},
+    {"id": "stage-6", "label": "Destructive Impact", "mitre": "T1561.002"}
+  ],
+  "evidence": [
+    {
+      "id": "EV-001",
+      "name": "Suspicious spearphishing email",
+      "type": "Email / Header",
+      "source": "Synthetic mail gateway log",
+      "severity": "medium",
+      "mitre": "T1566.001",
+      "sha256": "simulated-ev001-64f8c29f9a4b9d18",
+      "preview": "From: energy-report@training-example.org | Attachment: Grid_Update_Q4.doc | SPF: fail | DMARC: fail",
+      "finding": "An unsolicited Office attachment was delivered to an operations-related mailbox. Header anomalies and attachment context make it a high-priority acquisition target."
+    },
+    {
+      "id": "EV-002",
+      "name": "Office child-process execution",
+      "type": "Endpoint telemetry",
+      "source": "Synthetic Windows EDR log",
+      "severity": "high",
+      "mitre": "T1059.005 / T1218.011",
+      "sha256": "simulated-ev002-23e8a3d2c4b4b61f",
+      "preview": "WINWORD.EXE -> rundll32.exe | user=operator.lab | host=WS-OPS-07",
+      "finding": "An Office process launched a system binary in a pattern consistent with malicious document execution. No payload is included in this project."
+    },
+    {
+      "id": "EV-003",
+      "name": "Credential capture indicator",
+      "type": "Host security event",
+      "source": "Synthetic endpoint alert",
+      "severity": "high",
+      "mitre": "T1056.001",
+      "sha256": "simulated-ev003-f671a10cd98a7100",
+      "preview": "Alert: suspicious credential-input capture behavior | host=WS-OPS-07 | user=operator.lab",
+      "finding": "The event indicates attempted credential collection behavior, supporting the hypothesis that valid accounts were later used for remote access."
+    },
+    {
+      "id": "EV-004",
+      "name": "Abnormal VPN authentication",
+      "type": "Authentication log",
+      "source": "Synthetic VPN concentrator",
+      "severity": "high",
+      "mitre": "T0822",
+      "sha256": "simulated-ev004-0c20574ed9420412",
+      "preview": "account=grid.ops | src=198.51.100.44 | result=success | new-device=true | geo=untrusted",
+      "finding": "A valid operator account authenticated from a previously unseen source. The address is from RFC 5737 documentation space and is not a real attacker address."
+    },
+    {
+      "id": "EV-005",
+      "name": "Remote administration session",
+      "type": "Remote access audit",
+      "source": "Synthetic jump-host log",
+      "severity": "high",
+      "mitre": "T0886",
+      "sha256": "simulated-ev005-576f1b8efa4ab10d",
+      "preview": "session=remote-support | src=JUMP-02 | dst=HMI-CTRL-03 | input-control=enabled",
+      "finding": "A remote support session was established toward an HMI workstation, providing a plausible bridge from enterprise access into the control environment."
+    },
+    {
+      "id": "EV-006",
+      "name": "Unauthorized breaker commands",
+      "type": "ICS / HMI audit log",
+      "source": "Synthetic SCADA audit export",
+      "severity": "critical",
+      "mitre": "T0831",
+      "sha256": "simulated-ev006-a624513fb210ff53",
+      "preview": "HMI-CTRL-03 -> BREAKER-12 OPEN | BREAKER-14 OPEN | operator-session=remote-support",
+      "finding": "Control commands opened multiple breakers outside the normal dispatch workflow, directly correlating cyber activity with operational impact."
+    },
+    {
+      "id": "EV-007",
+      "name": "Call-center denial-of-service pattern",
+      "type": "Telephony metadata",
+      "source": "Synthetic PBX summary",
+      "severity": "high",
+      "mitre": "Impact / service disruption",
+      "sha256": "simulated-ev007-45d06e82697fa22c",
+      "preview": "Inbound call rate increased 18x baseline | queue saturation=100% | source identifiers=rotating",
+      "finding": "The simulated PBX records show a flood pattern occurring during the outage window, consistent with attempts to impede customer and operator communications."
+    },
+    {
+      "id": "EV-008",
+      "name": "Destructive disk-wipe alert",
+      "type": "Endpoint / disk telemetry",
+      "source": "Synthetic server forensic sensor",
+      "severity": "critical",
+      "mitre": "T1561.002",
+      "sha256": "simulated-ev008-c7dd138ead68bd5a",
+      "preview": "Host=SCADA-SRV-02 | alert=boot-structure corruption attempt | process=unknown | execution blocked in simulation",
+      "finding": "A destructive action targeting boot structures would hinder recovery and evidence preservation. The prototype only records the event; no destructive action is performed."
+    }
+  ],
+  "events": [
+    {
+      "seq": 1,
+      "delay": 0.8,
+      "sim_time": "T+00:00",
+      "stage": "stage-1",
+      "title": "Suspicious email delivered",
+      "message": "A crafted Office attachment reaches an operations mailbox.",
+      "severity": "medium",
+      "mitre": ["T1566.001"],
+      "evidence_ids": ["EV-001"],
+      "risk": 18
+    },
+    {
+      "seq": 2,
+      "delay": 1.0,
+      "sim_time": "T+00:18",
+      "stage": "stage-2",
+      "title": "Abnormal child process detected",
+      "message": "Endpoint telemetry records Office spawning a system execution utility.",
+      "severity": "high",
+      "mitre": ["T1059.005", "T1218.011"],
+      "evidence_ids": ["EV-002"],
+      "risk": 32
+    },
+    {
+      "seq": 3,
+      "delay": 1.0,
+      "sim_time": "T+01:05",
+      "stage": "stage-3",
+      "title": "Credential capture behavior",
+      "message": "Host monitoring reports suspicious credential-input capture activity.",
+      "severity": "high",
+      "mitre": ["T1056.001"],
+      "evidence_ids": ["EV-003"],
+      "risk": 46
+    },
+    {
+      "seq": 4,
+      "delay": 1.2,
+      "sim_time": "T+05:40",
+      "stage": "stage-4",
+      "title": "Operator VPN account used from new source",
+      "message": "A valid grid-operations account establishes a session from an unseen documentation-range IP.",
+      "severity": "high",
+      "mitre": ["T0822"],
+      "evidence_ids": ["EV-004"],
+      "risk": 58
+    },
+    {
+      "seq": 5,
+      "delay": 1.0,
+      "sim_time": "T+06:15",
+      "stage": "stage-4",
+      "title": "Remote session reaches HMI workstation",
+      "message": "A remote support path is used from a jump host to a control workstation.",
+      "severity": "high",
+      "mitre": ["T0886"],
+      "evidence_ids": ["EV-005"],
+      "risk": 68
+    },
+    {
+      "seq": 6,
+      "delay": 1.3,
+      "sim_time": "T+06:41",
+      "stage": "stage-5",
+      "title": "Breaker OPEN commands issued",
+      "message": "Multiple breaker-open commands appear in the HMI audit trail outside the normal dispatch workflow.",
+      "severity": "critical",
+      "mitre": ["T0831"],
+      "evidence_ids": ["EV-006"],
+      "risk": 89
+    },
+    {
+      "seq": 7,
+      "delay": 1.0,
+      "sim_time": "T+06:44",
+      "stage": "stage-5",
+      "title": "Operational outage confirmed",
+      "message": "Simulated telemetry shows loss of service across affected feeders after unauthorized control actions.",
+      "severity": "critical",
+      "mitre": ["Loss of Availability"],
+      "evidence_ids": [],
+      "risk": 94
+    },
+    {
+      "seq": 8,
+      "delay": 0.9,
+      "sim_time": "T+06:47",
+      "stage": "stage-5",
+      "title": "Customer call center saturated",
+      "message": "Synthetic PBX metadata shows a denial-of-service pattern during the outage window.",
+      "severity": "high",
+      "mitre": ["Impact"],
+      "evidence_ids": ["EV-007"],
+      "risk": 96
+    },
+    {
+      "seq": 9,
+      "delay": 1.2,
+      "sim_time": "T+07:02",
+      "stage": "stage-6",
+      "title": "Destructive cleanup activity detected",
+      "message": "A server sensor records simulated disk-wipe behavior associated with recovery disruption.",
+      "severity": "critical",
+      "mitre": ["T1561.002"],
+      "evidence_ids": ["EV-008"],
+      "risk": 100
+    },
+    {
+      "seq": 10,
+      "delay": 1.0,
+      "sim_time": "T+08:20",
+      "stage": "stage-6",
+      "title": "Forensic containment and preservation",
+      "message": "Investigators isolate affected systems, preserve volatile and log evidence, and begin chain-of-custody documentation.",
+      "severity": "info",
+      "mitre": ["Incident Response"],
+      "evidence_ids": [],
+      "risk": 72
+    }
+  ],
+  "sources": [
+    {
+      "name": "MITRE ATT&CK – 2015 Ukraine Electric Power Attack (C0028)",
+      "url": "https://attack.mitre.org/campaigns/C0028/"
+    },
+    {
+      "name": "CISA – Understanding and Mitigating Russian State-Sponsored Cyber Threats to U.S. Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/alerts/2022/01/11/understanding-and-mitigating-russian-state-sponsored-cyber-threats-us-critical-infrastructure"
+    },
+    {
+      "name": "SANS ICS – Confirmation of a Coordinated Attack on the Ukrainian Power Grid",
+      "url": "https://www.sans.org/blog/confirmation-of-a-coordinated-attack-on-the-ukrainian-power-grid"
+    }
+  ]
+}
