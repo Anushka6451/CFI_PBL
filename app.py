@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import json
 import mimetypes
 import time
@@ -10,8 +11,8 @@ from urllib.parse import parse_qs, urlparse
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_FILE = BASE_DIR / "data" / "incident.json"
-HOST = "127.0.0.1"
-PORT = 5000
+HOST = "0.0.0.0"
+PORT = int(os.environ.get("PORT", 10000))0.0.1"
 
 
 def load_case() -> dict:
