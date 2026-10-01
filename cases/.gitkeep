@@ -1,0 +1,2 @@
+# This directory holds the SQLite forensic case database (generated at runtime).
+# It is excluded from version control via .gitignore.

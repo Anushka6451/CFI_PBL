@@ -1,0 +1,2 @@
+# Exported forensic case reports are saved here at runtime.
+# This directory is tracked but report files are gitignored.

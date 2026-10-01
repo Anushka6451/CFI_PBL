@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Simulation runtime artifacts (generated at runtime — not committed)
+simulation_lab/
+
+# SQLite database (generated at runtime)
+cases/forensic_case.db
+cases/evidence_archive/
+
+# Exported reports (generated at runtime)
+reports/*.txt
+reports/*.pdf
+
+# IDE / OS
+.vscode/
+.idea/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Antigravity / Gemini
+.agents/
+.gemini/
